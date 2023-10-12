@@ -1,0 +1,12 @@
+gitpython
+transformers 
+datasets
+sentence-transformers
+transformers[torch]
+
+
+# util - metric
+seqeval
+evaluate
+
+pytorch-crf
