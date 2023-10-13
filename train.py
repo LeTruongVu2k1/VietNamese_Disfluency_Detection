@@ -23,9 +23,10 @@ import transformers
 
 from customized_bert_crf import BERTCRF
 
-def train(args, dataset): 
-    """ Training with Data-Augmentation """
 
+
+
+def train(args, dataset): 
     # List of label's names (string) 
     label_names = dataset['train'].features['label'].feature.names
     
@@ -38,7 +39,7 @@ def train(args, dataset):
     
     if args.training_version in ['DA', 'BOTH']:
         # Data augmentation
-        augmented_dataset = data_augment(dataset['dev'], args.pretrained_feature_extraction_checkpoint, args.pretrained_sentence_extraction_checkpoint, label_names, args.ER_threshold, args.SE_threshold)
+        augmented_dataset = data_augment(dataset['train'], args.pretrained_feature_extraction_checkpoint, args.pretrained_sentence_extraction_checkpoint, label_names, args.ER_threshold, args.SE_threshold)
 
         # print(f"Grouped {len(augmented_dataset.RM_large_neighbor)} RM-entities, {len(augmented_dataset.IM_large_neighbor)} IM-entities.")
         print(f"Size of Augmented Dataset: {len(augmented_dataset)}")
@@ -65,7 +66,7 @@ def train(args, dataset):
 
         compute_metrics = compute_metrics_with_extra(label_names)
 
-    else:
+    else: # 'CRF' or 'BOTH' version
         model = BERTCRF(num_labels=len(label_names),
                 id2label=id2label,
                 label2id=label2id,
@@ -74,9 +75,6 @@ def train(args, dataset):
                 attention_dropout=args.attention_dropout)
         
         compute_metrics = compute_metrics_crf_with_extra(label_names, model)
-        
-        
-
         
     # train_arguments = TrainingArguments(
     #                 output_dir="DD0101/modular_augmentation",
@@ -90,10 +88,8 @@ def train(args, dataset):
     #                 per_device_eval_batch_size=32,
     #                 metric_for_best_model='eval_f1', # These are set for
     #                 load_best_model_at_end=True      # early stopping call backs
-    #             )
-
+    #             
     
-
     train_arguments = TrainingArguments(
                 output_dir=args.output_dir,
                 evaluation_strategy=args.evaluation_strategy,
@@ -120,6 +116,8 @@ def train(args, dataset):
         callbacks=[transformers.EarlyStoppingCallback(early_stopping_patience=25)]
     )
     trainer.train()
+
+
 
 
 if __name__ == '__main__':
