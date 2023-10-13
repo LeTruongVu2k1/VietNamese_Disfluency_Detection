@@ -6,7 +6,7 @@
 - In Data-Augmentation technique, each type of entities tags (RM and IM) are grouped into a *neighborhood* if their cosine-similarity are greater than ER_threshold (ER: Entity Replacement). Then the sentence of a specific entity are replaced by its *neighbors* from *neighborhood*, but if the cosine-similarity between the original sentence and original one are above the SE_threshold (SE: Sentence Evaluation).
 <img src='images/Data_Augmentation.png' align="center" width=1000>
 - The CRF technique introduce the transition between labels. This behavior help modelling the conditional probabilities between labels given the observed sequence, taking into account the contextual information surrounding each token. When predicting, instead of making local, independent decisions for each token, CRFs consider the entire sequence and select the label sequence that maximizes the joint probability distribution. This global optimization helps ensure consistency and coherence in the predicted labels.
-<img src='images/BERT_CRF.png' align="center" width=1000>
+<img src='images/BERT_CRF.png' align="center" width=1400>
 
 ## Installation
 - Clone this repo
