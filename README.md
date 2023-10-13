@@ -2,7 +2,11 @@
 ## Introduction
 - This is my project on investigating ways to improve the performances of Vietnamese Disfluency Detection, a very new task that first published in this [artical](https://aclanthology.org/2022.wnut-1.21/).
 - This project proposed two ways to improve the performances: Data-Augmentation and Condition Random Field-Plugin (CRF-Plugin).
-- As this [paper](https://arxiv.org/pdf/2209.08359.pdf) pointed out, some popular SLU downstream tasks like Intent-Detection and Slot-Filling - which is trained on fluent utterances - is affected by disfluency utterances. So the improvement on the Vietnamese Disfluency Detection can help these SLU models more robust in practice.   
+- As this [paper](https://arxiv.org/pdf/2209.08359.pdf) pointed out, some popular SLU downstream tasks like Intent-Detection and Slot-Filling - which is trained on fluent utterances - is affected by disfluency utterances. So the improvement on the Vietnamese Disfluency Detection can help these SLU models more robust in practice.
+- In Data-Augmentation technique, each type of entities tags (RM and IM) are grouped into a *neighborhood* if their cosine-similarity are greater than ER_threshold (ER: Entity Replacement). Then the sentence of a specific entity are replaced by its *neighbors* from *neighborhood*, but if the cosine-similarity between the original sentence and original one are above the SE_threshold (SE: Sentence Evaluation).
+<img src='images/Data_Augmentation.png' align="center" width=1000>
+- The CRF technique introduce the transition between labels. This behavior help modelling the conditional probabilities between labels given the observed sequence, taking into account the contextual information surrounding each token. When predicting, instead of making local, independent decisions for each token, CRFs consider the entire sequence and select the label sequence that maximizes the joint probability distribution. This global optimization helps ensure consistency and coherence in the predicted labels.
+<img src='images/BERT_CRF.png' align="center" width=1000>
 
 ## Installation
 - Clone this repo
@@ -45,8 +49,8 @@ python VietNamese_Disfluency_Detection/train.py -training_version 'DA' \
                                                 -pretrained_sentence_extraction_checkpoint 'sentence-transformers/paraphrase-MiniLM-L6-v2' \
                                                 -ER_threshold 0.8 \
                                                 -SE_threshold 0.85 
-  
 ```
+
 - To train the model using CRF technique:
 ```bash
 python VietNamese_Disfluency_Detection/train.py -training_version 'CRF' \
@@ -56,6 +60,7 @@ python VietNamese_Disfluency_Detection/train.py -training_version 'CRF' \
                                                 -hidden_dropout 0.2 \
                                                 -attention_dropout 0.4
 ```
+   
 - To use both:
 ```bash
 python VietNamese_Disfluency_Detection/train.py -training_version 'BOTH' \
