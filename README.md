@@ -1,4 +1,4 @@
-# Vietnamese_Disfluency_Detection
+# Vietnamese Disfluency Detection
 ## Introduction
 - This is my project on investigating ways to improve the performances of Vietnamese Disfluency Detection, a very new task that first published in this [artical](https://aclanthology.org/2022.wnut-1.21/).
 - This project proposed two ways to improve the performances: Data-Augmentation and Condition Random Field-Plugin (CRF-Plugin).
