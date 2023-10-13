@@ -70,5 +70,5 @@ python VietNamese_Disfluency_Detection/train.py -training_version 'BOTH' \
 ```
 
 **Notes**
-- If you've not stored your data in **data_dir** (the default directory when running the `data_loader.py` above), then you have to specify your data's directory in `-data_dir`.
+- If you've not stored your data in **data** (the default directory when running the `data_loader.py` above), then you have to specify your data's directory in `-data_dir`.
 - You can adjust more training's arguments, please use `-h` flag for more information.
