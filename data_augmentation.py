@@ -240,7 +240,7 @@ class SNR_Augmentation:
       augmented_sentence_embeddings = self.sentence_model.encode(' '.join(possible_augmented_text))
       original_sentence_embeddings = self.sentence_model.encode(' '.join(original_sentence))
 
-      print(' '.join(possible_augmented_text))
+      # print(' '.join(possible_augmented_text))
 
       # Calculate the dot product of the two arrays
       dot_product = np.dot(augmented_sentence_embeddings, original_sentence_embeddings)
