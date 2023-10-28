@@ -26,8 +26,7 @@ pip install -r 'Vietnamese_Disfluency_Detection/requirements.txt'
 - The dataset used here is [PhoATIS_Disfluency](https://github.com/vinairesearch/phoatis_disfluency) - a dataset created for investigating the influence of disfluency detection on the downstream intent detection and slot filling tasks.
 - Run the `data_loader.py` below to clone the dataset's repository and convert them into **.pkl** files (to be loaded later by HuggingFace's pickled loading script) 
 ```bash
-python VietNamese_Disfluency_Detection/data_loader.py -data_dir \
-                                                      -src_parent_dir "PhoDisfluency/data/word-level" \
+python VietNamese_Disfluency_Detection/data_loader.py -src_parent_dir "PhoDisfluency/data/word-level" \
                                                       -dst_parent_dir "data"
 ```
 - You can adjust the arguments by adding `-h` flags. But if you don't adjust any arguments, then it will structure your data in the directory named **data**:
